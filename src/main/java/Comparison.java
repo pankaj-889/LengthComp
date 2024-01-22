@@ -1,4 +1,6 @@
 import javafx.util.Pair;
+
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -70,6 +72,19 @@ public class Comparison {
         }
 
     }
+
+    static Double addition(Double l1, Double l2){
+        if(l1 < 0.0 || l2 < 0.0) return 0.0;
+        return l1 + l2;
+    }
+    static Double subtraction(Double l1, Double l2){
+        if(l1 < 0.0 || l2 < 0.0) return 0.0;
+        if(l1 == 0.0) return l2;
+        if(l2 == 0.0) return l1;
+
+        if(l1 >= l2) return l1-l2;
+        else return l2-l1;
+    }
     static Boolean comparison(Pair<Double,String> p1,Pair<Double,String> p2){
 
         System.out.println(p1.getKey() + p1.getValue());
@@ -106,6 +121,15 @@ public class Comparison {
             } else {
                 return false;
             }
+
+            Double additionRes = addition(convertedLength,p2.getKey());
+            Double subtractionRes = subtraction(convertedLength,p2.getKey());
+
+            System.out.printf("addition of two length %f and %f = %f %s",convertedLength,p2.getKey(),additionRes,p2.getValue());
+            System.out.println("\n");
+            System.out.printf("subtraction of two length %f and %f = %f %s",convertedLength,p2.getKey(),subtractionRes,p2.getValue());
+            System.out.println("\n");
+
             return Objects.equals(convertedLength, p2.getKey());
         }
     }
@@ -128,7 +152,7 @@ public class Comparison {
             list.add(new Pair<Double,String>(Length,selectedDimension));
         }
 
-        System.out.println(comparison(list.get(0),list.get(1)));
+        System.out.println("Are both the lengths equal :" + comparison(list.get(0),list.get(1)));
 
     }
 }

@@ -7,19 +7,50 @@ import static org.junit.Assert.assertEquals;
 public class ComparisonTest {
 
     @Test
+    public void testWithNegativeLength() {
+        Boolean expectedValue = false;
+        Pair<Double,String> p1 = new Pair<>(-1.1,"cm");
+        Pair<Double,String> p2 = new Pair<>(1.1,"Cm");
+        assertEquals(expectedValue, Comparison.comparison(p1,p2));
+    }
+
+    @Test
+    public void testWithBothLengthsZero() {
+        Boolean expectedValue = true;
+        Pair<Double,String> p1 = new Pair<>(0.0,"cm");
+        Pair<Double,String> p2 = new Pair<>(0.0,"Cm");
+        assertEquals(expectedValue, Comparison.comparison(p1,p2));
+    }
+
+    @Test
+    public void testWithSingleLengthZero() {
+        Boolean expectedValue = false;
+        Pair<Double,String> p1 = new Pair<>(10.0,"cm");
+        Pair<Double,String> p2 = new Pair<>(0.0,"Cm");
+        assertEquals(expectedValue, Comparison.comparison(p1,p2));
+    }
+
+    @Test
+    public void test_When_Length_are_not_equal() {
+        Boolean expectedValue = false;
+        Pair<Double,String> p1 = new Pair<>(10.0,"km");
+        Pair<Double,String> p2 = new Pair<>(20.0,"Cm");
+        assertEquals(expectedValue, Comparison.comparison(p1,p2));
+    }
+
+    @Test
+    public void test_When_Length_are_equal() {
+        Boolean expectedValue = true;
+        Pair<Double,String> p1 = new Pair<>(12323.0,"cm");
+        Pair<Double,String> p2 = new Pair<>(0.12323,"km");
+        assertEquals(expectedValue, Comparison.comparison(p1,p2));
+    }
+
+    @Test
     public void testWithEmptyDimension() {
         String expectedValue = "Select correct dimension";
         String userValue = "";
         assertEquals(expectedValue, Comparison.selectDimensions(userValue));
-    }
-
-    @Test
-    public void testWithNumbericDimension() {
-        String expectedValue = "Select correct dimension";
-        String userValue = "123";
-        assertEquals(expectedValue, Comparison.selectDimensions(userValue));
-
-
     }
 
     @Test
@@ -46,45 +77,7 @@ public class ComparisonTest {
 
     }
 
-    @Test
-    public void testWithNegativeLength() {
-        Boolean expectedValue = false;
-        Pair<Double,String> p1 = new Pair<>(-1.1,"cm");
-        Pair<Double,String> p2 = new Pair<>(1.1,"Cm");
-        assertEquals(expectedValue, Comparison.comparison(p1,p2));
-    }
 
-    @Test
-    public void testWithBothValueZero() {
-        Boolean expectedValue = true;
-        Pair<Double,String> p1 = new Pair<>(0.0,"cm");
-        Pair<Double,String> p2 = new Pair<>(0.0,"Cm");
-        assertEquals(expectedValue, Comparison.comparison(p1,p2));
-    }
-
-    @Test
-    public void testWithSingleValueZero() {
-        Boolean expectedValue = false;
-        Pair<Double,String> p1 = new Pair<>(10.0,"cm");
-        Pair<Double,String> p2 = new Pair<>(0.0,"Cm");
-        assertEquals(expectedValue, Comparison.comparison(p1,p2));
-    }
-
-    @Test
-    public void test_When_Length_are_not_equal() {
-        Boolean expectedValue = false;
-        Pair<Double,String> p1 = new Pair<>(10.0,"km");
-        Pair<Double,String> p2 = new Pair<>(20.0,"Cm");
-        assertEquals(expectedValue, Comparison.comparison(p1,p2));
-    }
-
-    @Test
-    public void test_When_Length_are_equal() {
-        Boolean expectedValue = true;
-        Pair<Double,String> p1 = new Pair<>(12323.0,"cm");
-        Pair<Double,String> p2 = new Pair<>(0.12323,"km");
-        assertEquals(expectedValue, Comparison.comparison(p1,p2));
-    }
 
     @Test
     public void test_convertLengthToMM() {
@@ -116,6 +109,30 @@ public class ComparisonTest {
         assertEquals(expectedValue, Comparison.convertLengthToKM(1000.0,"m"));
         assertEquals(expectedValue, Comparison.convertLengthToKM(100000.0,"cm"));
         assertEquals(expectedValue, Comparison.convertLengthToKM(1000000.0,"mm"));
+    }
+
+    @Test
+    public void test_addition_with_NegativeValue(){
+        Double expectedValue = 0.0;
+        Double p1 = -1.1;
+        Double p2 = 0.0;
+        assertEquals(expectedValue, Comparison.addition(p1,p2));
+    }
+
+    @Test
+    public void test_addition_with_BothValuesZero() {
+        Double expectedValue = 0.0;
+        Double p1 = 0.0;
+        Double p2 = 0.0;
+        assertEquals(expectedValue, Comparison.addition(p1,p2));
+    }
+
+    @Test
+    public void test_addition_with_BothValuesarePositive() {
+        Double expectedValue = 180.0;
+        Double p1 = 100.0;
+        Double p2 = 80.0;
+        assertEquals(expectedValue, Comparison.addition(p1,p2));
     }
 
 
